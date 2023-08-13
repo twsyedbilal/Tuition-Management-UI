@@ -27,6 +27,7 @@ import StarBorder from "@mui/icons-material/StarBorder";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SchoolIcon from '@mui/icons-material/School';
 
 
 const drawerWidth = 240;
@@ -163,6 +164,14 @@ const profileIconHandler =() =>{
                   <StarBorder />
                 </ListItemIcon>
                 <ListItemText primary="Teacher" />
+              </ListItemButton>
+            </List>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <SchoolIcon />
+                </ListItemIcon>
+                <ListItemText primary="Students" />
               </ListItemButton>
             </List>
             <List component="div" disablePadding>

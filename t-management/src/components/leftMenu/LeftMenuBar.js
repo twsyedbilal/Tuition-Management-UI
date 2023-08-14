@@ -24,10 +24,19 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import StarBorder from "@mui/icons-material/StarBorder";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import SchoolIcon from '@mui/icons-material/School';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import SchoolIcon from "@mui/icons-material/School";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import User from "../pages/User";
+import { BrowserRouter ,  Route, Routes , } from "react-router-dom";
+import Staff from "../pages/Staff";
+import Dashboard from "../pages/Dashboard";
+import Students from './../pages/Students';
+import Accountant from './../pages/Accountant';
 
 
 const drawerWidth = 240;
@@ -78,6 +87,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function LeftMenuBar() {
+  const navigate = useNavigate();
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [subMenu, setSubMenu] = React.useState(false);
@@ -90,12 +101,14 @@ export default function LeftMenuBar() {
     setOpen(false);
   };
 
-  const subMenuHandleClick = () => {
+  const subMenuHandleClick = (route) => {
     setSubMenu(!subMenu);
   };
-const profileIconHandler =() =>{
-  console.log('hello i am here!');
-}
+
+  const profileIconHandler = () => {
+    console.log("hello i am here!");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -110,12 +123,21 @@ const profileIconHandler =() =>{
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" style={{fontSize:"30px", position:"fixed" , marginLeft:"50px"}}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            style={{ fontSize: "30px", position: "fixed", marginLeft: "50px" }}
+          >
             Techweaver Academy
           </Typography>
-          <AccountCircleIcon style={{fontSize:"40px", width:"190%", }}  onClick = {profileIconHandler}/>
+          <AccountCircleIcon
+            style={{ fontSize: "40px", width: "190%" }}
+            onClick={profileIconHandler}
+          />
         </Toolbar>
       </AppBar>
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -130,7 +152,6 @@ const profileIconHandler =() =>{
         open={open}
       >
         <DrawerHeader>
-
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -142,81 +163,78 @@ const profileIconHandler =() =>{
         <Divider />
 
         <List>
-        <ListItemButton onClick={subMenuHandleClick}>
+          <ListItemButton onClick={() => subMenuHandleClick("/user")}>
             <ListItemIcon>
-              <AdminPanelSettingsIcon />
+              <ExpandCircleDownIcon  />
             </ListItemIcon>
-            <ListItemText primary="Admin" />
-            {subMenu ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary="Roles" />
           </ListItemButton>
+
           <Collapse in={subMenu} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                <ListItemText primary="User" />
-              </ListItemButton>
+              <Link to={"/"}>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <AdminPanelSettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Admin" />
+                </ListItemButton>
+              </Link>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary="Teacher" />
-              </ListItemButton>
+              <Link to={"/user"}>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <AccountCircleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="User" />
+                </ListItemButton>
+              </Link>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText primary="Students" />
-              </ListItemButton>
+              <Link to={"/staff"}>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText primary="Teacher" />
+                </ListItemButton>
+              </Link>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <CurrencyRupeeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Acountent" />
-              </ListItemButton>
+              <Link to={"/students"}>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <SchoolIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Students" />
+                </ListItemButton>
+              </Link>
+            </List>
+            <List component="div" disablePadding>
+              <Link to={"/accountant"}>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <CurrencyRupeeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Accountant" />
+                </ListItemButton>
+              </Link>
             </List>
           </Collapse>
-
-          <ListItemButton>
-            <ListItemIcon>
-              <SendIcon />
-            </ListItemIcon>
-            <ListItemText primary="Sent mail" />
-          </ListItemButton>
-          <ListItemButton>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
-          </ListItemButton>
         </List>
       </Drawer>
+
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph >
-          <h1> Techweaver Academy.</h1>
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+       
+        <Routes>        
+        <Route path="/" element={<Dashboard/>}></Route>
+          <Route path="/students" element={<Students />}></Route>
+          <Route path="/user" element={<User />}></Route>
+          <Route path="/staff" element={<Staff />}></Route>
+          <Route path="/accountant" element={<Accountant />}></Route>
+        </Routes>
       </Main>
     </Box>
   );

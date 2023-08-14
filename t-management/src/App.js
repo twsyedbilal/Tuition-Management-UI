@@ -1,11 +1,10 @@
-import './App.css';
-import LeftMenuBar from './components/leftMenu/LeftMenuBar';
-
+import "./App.css";
+import LeftMenuBar from "./components/leftMenu/LeftMenuBar";
 
 function App() {
   return (
     <div className="App">
-     <LeftMenuBar />
+      <LeftMenuBar />
     </div>
   );
 }

@@ -1,0 +1,7 @@
+.custom-anchor-tag{
+    text-decoration: none;
+    color: black;
+}
+.custom-anchor-tag:active{
+    color: black;
+}

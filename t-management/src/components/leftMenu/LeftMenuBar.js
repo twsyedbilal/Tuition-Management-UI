@@ -32,7 +32,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import User from "../pages/User";
-import { BrowserRouter ,  Route, Routes , } from "react-router-dom";
+import { BrowserRouter, Route, Routes, } from "react-router-dom";
 import Staff from "../pages/Staff";
 import Dashboard from "../pages/Dashboard";
 import Students from './../pages/Students';
@@ -88,6 +88,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function LeftMenuBar() {
   const navigate = useNavigate();
+  const [adminSubMenuOpen, setAdminSubMenuOpen] = React.useState(false);
+  const [adminSubMenuItems, setAdminSubMenuItems] = React.useState([
+
+    { label: "User", route: "/user" },
+    { label: "Classes", route: "/classes" },
+    // Add more submenu items as needed
+  ]);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -95,6 +102,9 @@ export default function LeftMenuBar() {
 
   const handleDrawerOpen = () => {
     setOpen(true);
+  };
+  const adminSubMenuHandleClick = () => {
+    setAdminSubMenuOpen(!adminSubMenuOpen);
   };
 
   const handleDrawerClose = () => {
@@ -162,28 +172,46 @@ export default function LeftMenuBar() {
         </DrawerHeader>
         <Divider />
 
-        <List>
-          <ListItemButton onClick={() => subMenuHandleClick("/user")}>
+        {/* <List> */}
+          {/* <ListItemButton onClick={() => subMenuHandleClick("/")}>
             <ListItemIcon>
-              <ExpandCircleDownIcon  />
+              <ExpandCircleDownIcon /> 
             </ListItemIcon>
-            <ListItemText primary="Roles" />
-          </ListItemButton>
+            <ListItemText primary="aaa" />
+          </ListItemButton> */}
 
-          <Collapse in={subMenu} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to={"/"}>
-                <ListItemButton sx={{ pl: 4 }}>
+          {/* <Collapse in={subMenu} timeout="auto" unmountOnExit sx={{ transformOrigin: '0 0 0' }}> */}
+
+            <List disablePadding>
+              <Link to={"/"}  className="custom-anchor-tag">
+                <ListItemButton onClick={adminSubMenuHandleClick}>
                   <ListItemIcon>
+                
                     <AdminPanelSettingsIcon />
                   </ListItemIcon>
                   <ListItemText primary="Admin" />
+                  {adminSubMenuOpen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
+                <Collapse in={adminSubMenuOpen} timeout="auto" unmountOnExit sx={{ transformOrigin: '0 0 0' }}>
+
+                  <List component="div" disablePadding>
+                    {adminSubMenuItems.map((item) => (
+                      <Link to={item.route} key={item.route}  className="custom-anchor-tag">
+                        <ListItemButton sx={{ pl: 4 }}>
+                          <ListItemIcon>
+                            <AdminPanelSettingsIcon />
+                          </ListItemIcon>
+                          <ListItemText primary={item.label} />
+                        </ListItemButton>
+                      </Link>
+                    ))}
+                  </List>
+                </Collapse>
               </Link>
             </List>
-            <List component="div" disablePadding>
-              <Link to={"/user"}>
-                <ListItemButton sx={{ pl: 4 }}>
+            <List disablePadding>
+              <Link to={"/user"} className="custom-anchor-tag">
+                <ListItemButton>
                   <ListItemIcon>
                     <AccountCircleIcon />
                   </ListItemIcon>
@@ -192,8 +220,8 @@ export default function LeftMenuBar() {
               </Link>
             </List>
             <List component="div" disablePadding>
-              <Link to={"/staff"}>
-                <ListItemButton sx={{ pl: 4 }}>
+              <Link to={"/staff"} className="custom-anchor-tag">
+                <ListItemButton>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
@@ -202,8 +230,8 @@ export default function LeftMenuBar() {
               </Link>
             </List>
             <List component="div" disablePadding>
-              <Link to={"/students"}>
-                <ListItemButton sx={{ pl: 4 }}>
+              <Link to={"/students"} className="custom-anchor-tag">
+                <ListItemButton>
                   <ListItemIcon>
                     <SchoolIcon />
                   </ListItemIcon>
@@ -212,8 +240,8 @@ export default function LeftMenuBar() {
               </Link>
             </List>
             <List component="div" disablePadding>
-              <Link to={"/accountant"}>
-                <ListItemButton sx={{ pl: 4 }}>
+              <Link to={"/accountant"} className="custom-anchor-tag">
+                <ListItemButton>
                   <ListItemIcon>
                     <CurrencyRupeeIcon />
                   </ListItemIcon>
@@ -221,19 +249,21 @@ export default function LeftMenuBar() {
                 </ListItemButton>
               </Link>
             </List>
-          </Collapse>
-        </List>
+          {/* </Collapse> */}
+
+        {/* </List> */}
       </Drawer>
 
       <Main open={open}>
         <DrawerHeader />
-       
-        <Routes>        
-        <Route path="/" element={<Dashboard/>}></Route>
+
+        <Routes>
+          <Route path="/" element={<Dashboard />}></Route>
           <Route path="/students" element={<Students />}></Route>
           <Route path="/user" element={<User />}></Route>
           <Route path="/staff" element={<Staff />}></Route>
           <Route path="/accountant" element={<Accountant />}></Route>
+
         </Routes>
       </Main>
     </Box>

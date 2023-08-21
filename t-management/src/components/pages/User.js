@@ -19,6 +19,7 @@ import {
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 
 
@@ -101,7 +102,7 @@ const UserTable = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
       <Button variant="contained" color="primary"  onClick={() => handleOpen()}>
-        Add User
+     Create <AddIcon/>
       </Button>
       </div>
       
@@ -172,9 +173,9 @@ const UserTable = () => {
       <MenuItem value="Teacher">Teacher</MenuItem>
       <MenuItem value="Accountant">Accountant</MenuItem>
     </Select>
-      (
+      {/* (
           user.role 
-        )
+        ) */}
   </FormControl>
   
           <TextField

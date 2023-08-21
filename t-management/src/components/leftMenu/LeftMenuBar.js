@@ -96,6 +96,10 @@ export default function LeftMenuBar() {
     // Add more submenu items as needed
   ]);
 
+  React.useEffect(()=>{
+navigate('/');
+  }, [])
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [subMenu, setSubMenu] = React.useState(false);
@@ -137,9 +141,9 @@ export default function LeftMenuBar() {
             variant="h6"
             noWrap
             component="div"
-            style={{ fontSize: "30px", position: "fixed", marginLeft: "50px" }}
+            style={{ fontSize: "19  px", position: "fixed", marginLeft: "50px" }}
           >
-            Techweaver Academy
+            Techweaver
           </Typography>
           <AccountCircleIcon
             style={{ fontSize: "40px", width: "190%" }}

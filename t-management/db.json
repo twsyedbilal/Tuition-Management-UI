@@ -1,0 +1,34 @@
+{
+    "users":[
+        {
+           "id":2,
+           "name":"Musharraf YT",
+           "email":"musharraf@gmail.com"
+        },
+        {
+           "id":3,
+           "name":"Raheman IT",
+           "email":"raheman@gmail.com"
+        },
+        {
+           "id":2,
+           "name":"Mukhid offline",
+           "email":"mukhid@gmail.com"
+        },
+        {
+           "id":2,
+           "name":"Faizan Teacher",
+           "email":"faizan@gmail.com"
+        },
+        {
+           "id":2,
+           "name":"Sohel Machine",
+           "email":"sohel@gmail.com"
+        },
+        {
+           "id":2,
+           "name":"Toufik Backend",
+           "email":"toufik@gmail.com"
+        }
+    ]
+}

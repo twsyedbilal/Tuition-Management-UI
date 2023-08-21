@@ -4,12 +4,14 @@ import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 
-const Login = (props) => {
+const Login = () => {
+  const [token, setToken] = useState('');
   const [enteredEmail, setEnteredEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
+
 useEffect(()=>{
   setFormIsValid(
     enteredEmail.includes('@') && enteredPassword.trim().length > 6
@@ -39,10 +41,39 @@ useEffect(()=>{
     setPasswordIsValid(enteredPassword.trim().length > 6);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler =async (event) => {
     event.preventDefault();
-    props.onLogin(enteredEmail, enteredPassword);
+   
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ enteredEmail, enteredPassword }),
+      });
+
+      const data = await response.json();
+      if (data) {
+        // Dummy response from JSONPlaceholder, using 'id' as a placeholder for a token
+        setToken(data.id.toString());
+        sessionStorage.setItem('jwtToken', data.id.toString());
+
+        setEnteredEmail("");
+        setEnteredPassword("");
+
+        
+        setTimeout(() => {
+          sessionStorage.removeItem('jwtToken');
+          setToken('');
+        }, 20000);
+      }
+      
+    } catch (error) {
+      console.error('Authentication error:', error);
+    }
   };
+
 
   return (
     <Card className={classes.login}>
@@ -76,11 +107,12 @@ useEffect(()=>{
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn} >
             Login
           </Button>
         </div>
       </form>
+
     </Card>
   );
 };

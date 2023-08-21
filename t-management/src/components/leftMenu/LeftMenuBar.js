@@ -1,5 +1,6 @@
 import * as React from "react";
 import { responsiveFontSizes, styled, useTheme } from "@mui/material/styles";
+import Login from "../Login/Login";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -37,6 +38,7 @@ import Staff from "../pages/Staff";
 import Dashboard from "../pages/Dashboard";
 import Students from './../pages/Students';
 import Accountant from './../pages/Accountant';
+import CategoryTable from "../pages/Classes";
 
 
 const drawerWidth = 240;
@@ -93,6 +95,7 @@ export default function LeftMenuBar() {
 
     { label: "User", route: "/user" },
     { label: "Classes", route: "/classes" },
+    
     // Add more submenu items as needed
   ]);
 
@@ -173,83 +176,83 @@ export default function LeftMenuBar() {
         <Divider />
 
         {/* <List> */}
-          {/* <ListItemButton onClick={() => subMenuHandleClick("/")}>
+        {/* <ListItemButton onClick={() => subMenuHandleClick("/")}>
             <ListItemIcon>
               <ExpandCircleDownIcon /> 
             </ListItemIcon>
             <ListItemText primary="aaa" />
           </ListItemButton> */}
 
-          {/* <Collapse in={subMenu} timeout="auto" unmountOnExit sx={{ transformOrigin: '0 0 0' }}> */}
+        {/* <Collapse in={subMenu} timeout="auto" unmountOnExit sx={{ transformOrigin: '0 0 0' }}> */}
 
-            <List disablePadding>
-              <Link to={"/"}  className="custom-anchor-tag">
-                <ListItemButton onClick={adminSubMenuHandleClick}>
-                  <ListItemIcon>
-                
-                    <AdminPanelSettingsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Admin" />
-                  {adminSubMenuOpen ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                <Collapse in={adminSubMenuOpen} timeout="auto" unmountOnExit sx={{ transformOrigin: '0 0 0' }}>
+        <List disablePadding>
+          <Link to={"/"} className="custom-anchor-tag">
+            <ListItemButton onClick={adminSubMenuHandleClick}>
+              <ListItemIcon>
 
-                  <List component="div" disablePadding>
-                    {adminSubMenuItems.map((item) => (
-                      <Link to={item.route} key={item.route}  className="custom-anchor-tag">
-                        <ListItemButton sx={{ pl: 4 }}>
-                          <ListItemIcon>
-                            <AdminPanelSettingsIcon />
-                          </ListItemIcon>
-                          <ListItemText primary={item.label} />
-                        </ListItemButton>
-                      </Link>
-                    ))}
-                  </List>
-                </Collapse>
-              </Link>
-            </List>
-            <List disablePadding>
-              <Link to={"/user"} className="custom-anchor-tag">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AccountCircleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="User" />
-                </ListItemButton>
-              </Link>
-            </List>
-            <List component="div" disablePadding>
-              <Link to={"/staff"} className="custom-anchor-tag">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText primary="Teacher" />
-                </ListItemButton>
-              </Link>
-            </List>
-            <List component="div" disablePadding>
-              <Link to={"/students"} className="custom-anchor-tag">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <SchoolIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Students" />
-                </ListItemButton>
-              </Link>
-            </List>
-            <List component="div" disablePadding>
-              <Link to={"/accountant"} className="custom-anchor-tag">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <CurrencyRupeeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Accountant" />
-                </ListItemButton>
-              </Link>
-            </List>
-          {/* </Collapse> */}
+                <AdminPanelSettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Admin" />
+              {adminSubMenuOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={adminSubMenuOpen} timeout="auto" unmountOnExit sx={{ transformOrigin: '0 0 0' }}>
+
+              <List component="div" disablePadding>
+                {adminSubMenuItems.map((item) => (
+                  <Link to={item.route} key={item.route} className="custom-anchor-tag">
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <AdminPanelSettingsIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={item.label} />
+                    </ListItemButton>
+                  </Link>
+                ))}
+              </List>
+            </Collapse>
+          </Link>
+        </List>
+        <List disablePadding>
+          <Link to={"/user"} className="custom-anchor-tag">
+            <ListItemButton>
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary="User" />
+            </ListItemButton>
+          </Link>
+        </List>
+        <List component="div" disablePadding>
+          <Link to={"/staff"} className="custom-anchor-tag">
+            <ListItemButton>
+              <ListItemIcon>
+                <StarBorder />
+              </ListItemIcon>
+              <ListItemText primary="Teacher" />
+            </ListItemButton>
+          </Link>
+        </List>
+        <List component="div" disablePadding>
+          <Link to={"/students"} className="custom-anchor-tag">
+            <ListItemButton>
+              <ListItemIcon>
+                <SchoolIcon />
+              </ListItemIcon>
+              <ListItemText primary="Students" />
+            </ListItemButton>
+          </Link>
+        </List>
+        <List component="div" disablePadding>
+          <Link to={"/accountant"} className="custom-anchor-tag">
+            <ListItemButton>
+              <ListItemIcon>
+                <CurrencyRupeeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Accountant" />
+            </ListItemButton>
+          </Link>
+        </List>
+        {/* </Collapse> */}
 
         {/* </List> */}
       </Drawer>
@@ -258,11 +261,15 @@ export default function LeftMenuBar() {
         <DrawerHeader />
 
         <Routes>
+
+
           <Route path="/" element={<Dashboard />}></Route>
           <Route path="/students" element={<Students />}></Route>
           <Route path="/user" element={<User />}></Route>
           <Route path="/staff" element={<Staff />}></Route>
           <Route path="/accountant" element={<Accountant />}></Route>
+          <Route path="/classes" element={<CategoryTable />}></Route>
+
 
         </Routes>
       </Main>
